@@ -1,0 +1,36 @@
+-------------------------------------------------------------------------------
+Test set: com.it_academy.practice.junit_basics.CalculatorTest
+-------------------------------------------------------------------------------
+Tests run: 17, Failures: 8, Errors: 0, Skipped: 0, Time elapsed: 0.112 s <<< FAILURE! - in com.it_academy.practice.junit_basics.CalculatorTest
+com.it_academy.practice.junit_basics.CalculatorTest.divByZero1  Time elapsed: 0.003 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Р”РµР»РёС‚СЊ РЅР° РЅРѕР»СЊ РЅРµР»СЊР·СЏ ==> expected: <true> but was: <false>
+	at com.it_academy.practice.junit_basics.CalculatorTest.divByZero1(CalculatorTest.java:69)
+
+com.it_academy.practice.junit_basics.CalculatorTest.root(int, int)[2]  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <10.0> but was: <3.5388210068115664>
+	at com.it_academy.practice.junit_basics.CalculatorTest.root(CalculatorTest.java:119)
+
+com.it_academy.practice.junit_basics.CalculatorTest.root(int, int)[3]  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <10.0> but was: <14.142135623730951>
+	at com.it_academy.practice.junit_basics.CalculatorTest.root(CalculatorTest.java:119)
+
+com.it_academy.practice.junit_basics.CalculatorTest.root(int, int)[4]  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <10.0> but was: <9.99666555493786>
+	at com.it_academy.practice.junit_basics.CalculatorTest.root(CalculatorTest.java:119)
+
+com.it_academy.practice.junit_basics.CalculatorTest.calcPow(int, int)[2]  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <3.2E-4> but was: <3125.0>
+	at com.it_academy.practice.junit_basics.CalculatorTest.calcPow(CalculatorTest.java:102)
+
+com.it_academy.practice.junit_basics.CalculatorTest.calcPow(int, int)[3]  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <3.2E-4> but was: <32.0>
+	at com.it_academy.practice.junit_basics.CalculatorTest.calcPow(CalculatorTest.java:102)
+
+com.it_academy.practice.junit_basics.CalculatorTest.calcPow(int, int)[4]  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <3.2E-4> but was: <256.0>
+	at com.it_academy.practice.junit_basics.CalculatorTest.calcPow(CalculatorTest.java:102)
+
+com.it_academy.practice.junit_basics.CalculatorTest.calcPow(int, int)[5]  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <3.2E-4> but was: <-0.037037037037037035>
+	at com.it_academy.practice.junit_basics.CalculatorTest.calcPow(CalculatorTest.java:102)
+
