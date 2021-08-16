@@ -24,26 +24,26 @@ public class CalculatorTest {
 
     private static Stream<Arguments> obviousTests() {
         return Stream.of(
-                Arguments.of(5, -5),
-                Arguments.of(5, 5),
-                Arguments.of(2, 5),
-                Arguments.of(-4, 4),
-                Arguments.of(-3, -3),
-                Arguments.of(50, -30));
+                Arguments.of(5, -5, 0),
+                Arguments.of(5, 5, 10),
+                Arguments.of(2, 5, 7),
+                Arguments.of(-4, 4, 0),
+                Arguments.of(-3, -3, 5),
+                Arguments.of(50, -30, 999));
     }
 
     @ParameterizedTest
     @MethodSource("obviousTests")
     @DisplayName("Операция +")
-    public void testAddition(int a, int b){
-        Assertions.assertEquals(10, new Calculator(a,b).calculate('+'));
+    public void testAddition(int a, int b, int c){
+        Assertions.assertEquals(c, new Calculator(a,b).calculate('+'));
     }
 
     @ParameterizedTest
-    @MethodSource("obviousTests")
+    @CsvSource({"50,40,10","0,-5,-5"})//почему ошибка при вычитании?
     @DisplayName("Операция -")
-    public void testSubtraction(){
-        Assertions.assertEquals(0, new Calculator(a,b).calculate('-'));
+    public void testSubtraction(int a, int b, int c){
+        Assertions.assertEquals(c, new Calculator(a,b).calculate('-'));
     }
 
     @ParameterizedTest
