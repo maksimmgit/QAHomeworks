@@ -1,13 +1,28 @@
 package com.it_academy.practice.junit_basics;
 
-public class Calculator {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
+public class Calculator {
     private int a;
     private int b;
+    private ArrayList<Integer> paramList;
 
     public Calculator(int a, int b) {
         this.a = a;
         this.b = b;
+    }
+
+    public ArrayList<Integer> getParamList() {
+        return paramList;
+    }
+
+    public Calculator(int[] params) {
+        paramList = new ArrayList<>();
+        for (int i = 0; i < params.length; i++) {
+            paramList.add(params[i]);
+        }
     }
 
     public float getA() {
@@ -26,7 +41,8 @@ public class Calculator {
         this.b = b;
     }
 
-    public float calculate(char operation) {
+    public double calculate(char operation) {
+
         switch(operation) {
             default: {
                 return 0;
@@ -38,56 +54,68 @@ public class Calculator {
                 return a + b;
             }
             case '/': {
-                return a / b;
+                try{
+                    return a/b;
+                }catch (ArithmeticException e){
+                    System.out.println("нельзя делить на ноль");
+                }
             }
             case '*': {
                 return a * b;
             }
+            case '√': {
+                return Math.sqrt(a);
+            }
+            case '^': {
+                return Math.pow(a,b);
+            }
         }
     }
 
 
-    /**
-     * Возведение в степень самописным алгоритмом с 1 курса java.
-     * Включена проверка на отрицательную степень.
-     *
-     * @return
-     */
-    public double pow(){
-        double result = 1;
-        if (b >=0) {
-            if (b == 1) {
-                return a;
+
+    public float calculateParams(char operation) {
+        int result = paramList.get(0);
+        if (paramList.size() < 2) return 0;
+
+        switch (operation) {
+            default: {
+                return 0;
             }
-            int x = 0;
-            while (x < b) {
-                result = result * a;
-                x++;
+            case '+': {
+                for (int i = 1; i < paramList.size(); i++) {
+                    result = result + paramList.get(i);
+                }
+                return result;
             }
-            return result;
-        }else{
-            b = -b;
-            for(long i = 0; i < b; i++) {
-                result *= a;
+            case '-': {
+                for (int i = 1; i < paramList.size(); i++) {
+                    result = result - paramList.get(i);
+                }
+                return result;
             }
-            return 1 / result;
         }
     }
 
 
-    /*
-    Привёл их к double чтобы не трогать оригинальный класс calculator и чтобы не писать две пачки аргументов.
-     */
-    public double root(){
-        double c = a*1.0;
-        double d = b*1.0;
-        if(c<0 && d%2 == 0){
-            System.out.println("Invalid Degree");
-            return 0;
-        }else {
-            return Math.pow(c, (1 / d));
+    public static int[] inputParameters() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите количество параметров: ");
+        int numberOfParameters = scanner.nextInt();
+        System.out.println("Ведите " + numberOfParameters + " параметров:");
+        int[] paramArray = new int[numberOfParameters];
+        int a = 0;
+        while (a < numberOfParameters) {
+            try {
+                int param = scanner.nextInt();
+                paramArray[a] = param;
+            } catch (Exception e) {
+                System.out.println(e);
+                break;
+            }
+            a++;
         }
+        return paramArray;
     }
-
 
 }

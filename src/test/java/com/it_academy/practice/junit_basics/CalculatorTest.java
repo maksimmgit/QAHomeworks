@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.stream.Stream;
@@ -17,18 +18,47 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculatorTest {
+    int a;
+    int b;
 
-    private final Calculator calculator = new Calculator(5, 5);
 
+    private static Stream<Arguments> obviousTests() {
+        return Stream.of(
+                Arguments.of(5, -5),
+                Arguments.of(5, 5),
+                Arguments.of(2, 5),
+                Arguments.of(-4, 4),
+                Arguments.of(-3, -3),
+                Arguments.of(50, -30));
+    }
 
-    @Test
-    @DisplayName("Очевидные значения и операции")
-    public void testObviousVariations(){
-        Assertions.assertEquals(0, calculator.calculate('-'));
-        Assertions.assertEquals(1, calculator.calculate('/'));
-        Assertions.assertEquals(25, calculator.calculate('*'));
-        Assertions.assertEquals(10, calculator.calculate('+'));   }
+    @ParameterizedTest
+    @MethodSource("obviousTests")
+    @DisplayName("Операция +")
+    public void testAddition(int a, int b){
+        Assertions.assertEquals(10, new Calculator(a,b).calculate('+'));
+    }
 
+    @ParameterizedTest
+    @MethodSource("obviousTests")
+    @DisplayName("Операция -")
+    public void testSubtraction(){
+        Assertions.assertEquals(0, new Calculator(a,b).calculate('-'));
+    }
+
+    @ParameterizedTest
+    @MethodSource("obviousTests")
+    @DisplayName("Операция /")
+    public void testDiv(){
+        Assertions.assertEquals(1, new Calculator(a,b).calculate('/'));
+    }
+
+    @ParameterizedTest
+    @MethodSource("obviousTests")
+    @DisplayName("Операция /")
+    public void testMultipl(){
+        Assertions.assertEquals(1, new Calculator(a,b).calculate('*'));
+    }
 
 
     @Test
@@ -49,8 +79,14 @@ public class CalculatorTest {
     }
 
     @Test
-    @DisplayName("Проверить деление на типичную ошибку")
+    @DisplayName("Проверяем деление на 0. ")
     public void divByZero(){
+        Assertions.assertEquals(0, new Calculator(5,0).calculate('/'));
+    }
+
+    @Test
+    @DisplayName("Проверить деление на типичную ошибку")
+    public void divByZero2(){
         Assertions.assertThrows(ArithmeticException.class,
                 ()-> new Calculator(5,0).calculate('/'));
     }
@@ -71,17 +107,22 @@ public class CalculatorTest {
     }
 
 
-
-    /*
-    Здесь проверяю свой метод генерации нужного числа аргументов, но как их подставлять в калькулятор?
-    Как заменить это монструозное new Calculator(calcArguments(1),calcArguments(2)) на что-то вменяемое?
-     */
-    @ParameterizedTest
-    @DisplayName("Проверка метода calcArguments")
-    @ArgumentsSource(CalcArguments.class)
-    public void calcArgumentsTest(Calculator calculator){
-        System.out.println(calculator.calculate('+'));
+    private static Stream<Arguments> params() {
+        return Stream.of(
+                Arguments.of(5, -5),
+                Arguments.of(5, 5),
+                Arguments.of(5),
+                Arguments.of(5, 5, 7));
     }
+
+    @ParameterizedTest
+    @MethodSource("params")
+    @DisplayName("Проверка любым количеством параметров")
+    public void calcParams(int... params){
+        Assertions.assertEquals(5, new Calculator(params).calculateParams('+'));
+
+    }
+
 
 
     private static Stream<Arguments> pow() {
@@ -93,13 +134,12 @@ public class CalculatorTest {
                 Arguments.of(-3, -3));
     }
 
-
     //Реализована проверка только по первой паре аргументов, дальше в ответах можно смотреть.
     @ParameterizedTest
     @MethodSource("pow")
     @DisplayName("Тестирование возведения в степень")
     public void calcPow(int a, int b){
-        Assertions.assertEquals(0.00032,new Calculator(a,b).pow());
+        Assertions.assertEquals(0.00032,new Calculator(a,b).calculate('^'));
     }
 
 
@@ -116,8 +156,10 @@ public class CalculatorTest {
     @MethodSource("rootArgs")
     @DisplayName("Тестирование взятия корня")
     public void root(int a, int b){
-        Assertions.assertEquals(10, new Calculator(a,b).root());
+        Assertions.assertEquals(10, new Calculator(a,b).calculate('√'));
     }
+
+
 
 
 
