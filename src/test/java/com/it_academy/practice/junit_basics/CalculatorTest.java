@@ -156,7 +156,7 @@ public class CalculatorTest {
     @MethodSource("rootArgs")
     @DisplayName("Тестирование взятия корня")
     public void root(int a, int b){
-        Assertions.assertEquals(10, new Calculator(a,b).calculate('√'));
+        Assertions.assertEquals(10, new Calculator(a,b).calculate('s'));
     }
 
 

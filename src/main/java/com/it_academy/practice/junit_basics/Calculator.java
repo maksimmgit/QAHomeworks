@@ -63,7 +63,8 @@ public class Calculator {
             case '*': {
                 return a * b;
             }
-            case '√': {
+            //поменял символ корня на S, потому что jenkins отказывался запускать тест:)
+            case 's': {
                 return Math.sqrt(a);
             }
             case '^': {
